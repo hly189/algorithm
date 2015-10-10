@@ -76,4 +76,23 @@ Choose an initial guess $x_0 \in [a,b]$
 
 
 \section{Newton method}
+Newton's method is fixed point iteration $p_n = g(p_{n-1})$ with $$g(x) = x - \frac{f(x)}{f'(x)}$$
+\begin{alg}{Newton-algorithm}
+\begin{algorithmic}
+Choose an initial guess for $x_0$
+\For{x = 1,2,...k}
+\State $x* = x_{k}$
+\State $x_{k+1} = x_k - \frac{f(x_k)}{f'(x_k)}$
+\If{$|x_{k+1} - x_k|$ is really small}
+\State $x* = x_{k+1}$
+\State \Return x*
+\EndIf
+\EndFor	
+\end{algorithmic}
+The code below is written in R.
+\lstinputlisting{/Users/lythaihoa2311992/R-files/newton.R}
+
+	
+\end{alg}
+
 \end{document}
