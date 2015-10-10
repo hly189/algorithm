@@ -1,0 +1,79 @@
+\documentclass[12pt]{article}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amsxtra}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage[]{mcode}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage[margin=1.5cm]{geometry}
+
+\newcommand{\tab}{\hspace{5mm}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+
+\newtheorem{theorem}{Theorem}[subsection]
+\newtheorem{cor}[theorem]{Corrolary}
+\newtheorem{prop}[theorem]{Proposition}
+\newtheorem{alg}[theorem]{Algorithm}
+
+\newtheorem*{ex}{Examples:}
+\newtheorem*{definition}{Defintion}
+\newtheorem*{remarks}{Remarks}
+
+
+\title{Algorithm}
+
+
+\begin{document}
+
+\maketitle
+\tableofcontents
+\newpage
+
+\section{The Bisection method}
+\begin{alg}
+\begin{itemize}
+	\item Suppose $f$ is continous on $[a,b]$, and $f(a),f(b)$ is opposite signs.
+	\item By Intermediate Value Theorem, there exists $x \in [a,b]$ such that $f(x) = 0$
+	\item Find the midpoint $p$ by dividing the interval $[a,b]$ by $p = \frac{a+b}{2}$
+	\item If $f(p)$ has the same sign as $f(a)$, we use the new interval $[p,b]$
+	\item If $f(p)$ has the same sign as $f(a)$, we use the new interval $[a,p]$
+	\item Repeat until the interval small enough to estimate $x$
+	\lstinputlisting{/Users/lythaihoa2311992/Documents/MATLAB/bisection.m}
+\end{itemize}
+\end{alg}
+
+
+
+
+
+
+\section{Fix-point Iteration}
+\subsection{Fixed point} \begin{itemize}
+	\item A number $p$ is a fixed point for a given function $g$ if $g(p) = p$
+	\item Given a root finding problem $f(p) = 0$, there are many $g$ with fixed point at $p$
+	$$g(x) = x - f(x)$$ $$g(x) = x + 3f(x)$$
+	\item If $g$ has a fixed point at $p$, then $f(x) = x -g(x)$ has a zero at $p$
+\end{itemize}
+Fix-point iteration implements the fixed point of iterated function \\ 
+\begin{alg}(Fixed-point iteration) \\
+Choose an initial guess $x_0 \in [a,b]$
+\begin{algorithmic}
+\For{k = 0,1,2,... do}
+\State $x_{k+1} = g(x_k)$
+\If{$|x_{k+1} - x_k|$ is very small then}
+\State $x* = x_{k+1}$
+\State \Return $x*$
+\EndIf
+\EndFor
+\end{algorithmic}
+\end{alg}
+\lstinputlisting{/Users/lythaihoa2311992/Documents/MATLAB/fixedpoint.m}
+
+
+\section{Newton method}
+\end{document}
