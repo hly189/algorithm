@@ -9,6 +9,7 @@
 \usepackage{algorithm}
 \usepackage{algpseudocode}
 \usepackage[margin=1.5cm]{geometry}
+\usepackage{url}
 
 \newcommand{\tab}{\hspace{5mm}}
 \newcommand{\N}{\mathbb{N}}
@@ -25,12 +26,13 @@
 \newtheorem*{remarks}{Remarks}
 
 
-\title{Algorithm}
-
+\title{Numerical methods }
+\author{Hoa Ly}
 
 \begin{document}
 
 \maketitle
+\abstract{ All the numerical methods below base on the lecture notes  of Math 128A (Spring 2014) and Math 128B (Spring 2015). However, most of the codes in this file are written by me. The source code is at https://github.com/hly189.}
 \tableofcontents
 \newpage
 
@@ -97,6 +99,65 @@ The code below is written in R.
 \section{Aitken's $\Delta^2$ method}
 \subsection{Accelerating convergence}
 \begin{itemize}
-	\item Suppose
+	\item Suppose $\{p_n\}_{n=0}^{\infty}$ is linearyly convergent with limit $p$
+	\item Assume that $$\frac{p_{n+1}-p}{p_n -p} = \frac{p_{n+2}-p}{p_{n+1} -p}$$
+	\item Solving for $p$ gives: $$p = \frac{p_{n+2}p_n-p_{n+1}^2}{p_{n+2} -2p_{n+1}+p_n}$$
+	\item Use this for new more rapidly converging sequence $\{\hat{p}\}_{n=0}^2$: $$\hat{p} = p_n -\frac{(p_{n+1} -p_n)^2}{p_{n+1} -2p_{n+1} +p_n}$$
 \end{itemize}
+
+\subsection{Delta notation}
+\begin{definition}
+	For a given sequence $\{p_n\}_{n=0}^{\infty}$, the forward difference $\Delta p_n$ is defined by:
+	$$\Delta p_n = p_{n+1} - p_n \; \text{for $n \geq 0$}$$
+	Higher power of the operator $Delta$ are defined recursively by $$\Delta^kp_n = \Delta(\Delta^{k-1}p_n) \; \text{for $k \geq 2$}$$
+	\end{definition}
+Since $\Delta^2p_n = p_{n+2} -2p_{n+1} + p_n$, then $$\hat{p}_n = p_n - \frac{(\Delta p_n)^2}{\Delta^2 p_n}$$
+\subsection{Convergence of Aitken's $\Delta^2$ Method}
+\begin{theorem}
+Suppose that $\{p_n\}_{n=0}^{\infty}$ converges linearly to p and that $$\lim_{n \to \infty} \frac{p_{n+1} - p}{p_n - p} <1$$
+Then,  	$\{\hat{p}\}_{n=0}^2$ converges to p faster than $\{p_n\}_{n=0}^{\infty}$ in the sense that 
+$$\lim_{n \to \infty}\frac{\hat{p}_n -p}{p_n - p} = 0$$
+\end{theorem}
+
+
+\section{Steffensen's Method}
+\subsection{Accelerating fixed point iteration}
+Aitken's $\Delta^2$ method for fixed-point iteration gives $$p_0, p_1 = g(p_0), \hat{p_0} = \Delta^2p_0$$ $$p3 = g(p_2), \hat{p_1} = \Delta^2p_1, \cdots$$
+Steffensen's method assumes $\hat{p_0}$ is better than $p_2$: 
+$$p_0^{(0)}, p_1^{(0)} = g(p_0^{(0)}), p_0^{(1)} = \Delta^2(p_0^{(0)})$$ $$p_1^{(1)} = g(p_0^{(1)}), \cdots$$
+\begin{alg}{Steffensen's Method}
+	\begin{algorithmic}
+	Choose an initial guess p0
+	\State i =1
+	\While{$i \leq N$} where N is the number of iteration
+		\State $p_1 = g(p_0)$ (Compute $p_1^{(i-1)}$)
+		\State $p_2 = g(p_1)$ (Compute $p_2^{(i-1)}$)
+		\State $p = p_0 - \frac{(p_1 - p_0)^2}{p_2 - 2p_1 + p_0}$ (Compute $p_0^{(i)}$)
+		\If{$|p - p_0|$ is really small then}
+			\State \Return p
+		\EndIf
+		\State $i = i+1$
+		\State $p_0 = p$
+		
+	\EndWhile
+	\State \Return p	
+	\end{algorithmic}
+\lstinputlisting{/Users/lythaihoa2311992/R-files/Steffensen.R}
+\end{alg}
+
+
+
+
+
+
+
+
+
+
+ \newpage
+ \begin{thebibliography}{1}
+
+      \bibitem{web}Per-olof Persson, \url{https://math.berkeley.edu/~persson/128A/}. Web
+
+  \end{thebibliography}
 \end{document}
