@@ -146,14 +146,55 @@ $$p_0^{(0)}, p_1^{(0)} = g(p_0^{(0)}), p_0^{(1)} = \Delta^2(p_0^{(0)})$$ $$p_1^{
 \end{alg}
 
 
+\section{Zeroes Polynomials}
+
+\subsection{Polynomial}
+A polynomial of degree n has the form $P(x) = a_nx^n +a_{n-1}x^{n-1} + \cdots +a_1x + a_0$ with coefficient $a_i$ and $a_n \neq 0$
+\begin{theorem}{(Fundamental Theorem of Algebra)}
+\newline If $P(x)$ polynomial of degree $n \geq 1$, with real or complex coefficients $P(x) = 0$ has at least one root. 	
+\end{theorem} 
+
+\begin{cor}
+	Exists unique $x_1 \cdots x_k$ and $m_1,\cdots, m_k$ with $\sum_{i=1}^k m_i = n$ and $$P(x) = a_n(x-x_1)^{m_1}(x-x_2)^{m_2}\cdots (x-x_k)^{m_k}$$
+\end{cor}
+
+\begin{cor}
+$P(x), Q(x)$ polynomials of  degree at most n. If $P(x_i) = Q(x_i)$ for $i = 1,2,\cdots, k$ with $k>n$, then $P(x) = Q(x)$	
+\end{cor}
 
 
+\subsection{Horner's method}
+\begin{theorem} {Horner's Method}
+\newline Let $P(x) = a_nx^n +a_{n-1}x^{n-1} + \cdots +a_1x + a_0$. If $b_n = a_n$ and $$b_k = a_k +b_{k+1}x_0 \; \text{for $k = n-1, n-2, \cdots, 1,0$}$$
+then $b_0 = P(x_0)$. Moreover, if 
+$$ Q(x) = b_nx^{n-1} + b_{n-1}x^{n-2} + \cdots + b_2x + b_1$$
+then $P(x) = (x - x_0)Q(x) + b_0$
+\end{theorem}
+
+\begin{alg}{Horner's }
+	\begin{algorithmic}
+	Choose an initial guess x0
+	\State Set $y = a_n$ and $z = b_n$
+	\For{$j = n-1,n-2, \cdots 1$}
+	\State $y = x_0y + a_j$
+	\State $z = x_0z + y$
+	\EndFor	
+	\State $y = x_0y + a_0$
+	\State \Return y,z
+	\end{algorithmic}
+	\lstinputlisting{/Users/lythaihoa2311992/R-files/Horner.R}
+\end{alg}
 
 
-
-
-
-
+\section{Muller's Method}
+\begin{itemize}
+	\item Similar to Secant method, but parabola instead of line
+	\item Fix quadratic polynomial $P(x) = a(x-p_2)^2 +b(x - p_2) + c$ that passes through $(p_0,f(p_0)),(p_1,f(p_1)),(p_2,f(p_2))$.
+	\item Solves $P(x) = 0$ for $p_3$ choose root closest to $p_2$:
+	$$p_3 = p_2 - \frac{2c}{b + sgn(b)\sqrt{b^2 - 4ac}}$$
+	\item Repeat until convergence
+	\item Relativey insensitive to initial $p_0,p_1,p_2$ but e.g $f(p_i) = f(p_{i+1}) = f(p_{i+3}) \neq 0 gives problems$
+\end{itemize}
  \newpage
  \begin{thebibliography}{1}
 
