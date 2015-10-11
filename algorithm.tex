@@ -196,6 +196,31 @@ then $P(x) = (x - x_0)Q(x) + b_0$
 	\item Relativey insensitive to initial $p_0,p_1,p_2$ but e.g $f(p_i) = f(p_{i+1}) = f(p_{i+3}) \neq 0 gives problems$
 \end{itemize}
 \lstinputlisting{/Users/lythaihoa2311992/R-files/muller.R}
+
+\section{The Lagrange Polynomial}
+\begin{theorem}
+	if $x_0, \cdots , x_n$ distinct and $f$ given at these numbers a unique polynomial $P(x)$ of degree $\leq$ n exists with 
+	$$f(x_k) = P(x_k) \; \text{for each $k = 0,1, \cdots, n$}$$
+	The polynomial is $$P(x) = f(x_0)L_{n,0}(x) + \cdots + f(x_n)L_{n,n}(x) = \sum_{k=0}^{n}f(x_k)L_{n,k}(x)$$
+	where 
+	$$L_{n,k}(x) = \frac{(x - x_0)(x - x_1) \cdots (x - x_{k-1})(x - x_{k+1}) \cdots (x- x_n)}{(x_k - x_0)(x_k - x_0)(x_k - x_1) \cdots (x_k - x_{k-1})(x_k - x_{k+1}) \cdots (x_k - x_n)} = \prod_{i \neq k} \frac{(x - x_i)}{(x_k - x_i)}$$
+\end{theorem}
+
+\begin{theorem}{(Langrange Polynomial Error Term)}
+$x_0, \cdots, x_n$ distinct in $[a,b]$, $f \in C^{n+1}[a,b]$, there exists $\xi (x) \in (a,b)$ with 
+$$f(x) = P(x) + \frac{f^{(n+1)}(\xi (x))}{(n+1)!}(x-x_0)(x-x_1) \cdots (x - x_n)$$
+where $P(x)$ is the interpolating polynomial. 
+\end{theorem}
+
+\section{Neville's Method}
+\begin{tabular}{ c c c c c c }
+ $x_0$ & $P_0 = Q_{0,0}$ \\
+ $x_1$ & $P_1 = Q_{1,0}$ & $P_{0,1} = Q_{1,1}$ \\
+ $x_2$ & $P_2 = Q_{2,0}$ & $P_{1,2} = Q_{2,1}$ & $P_{0,1,2} = Q_{2,2}$ \\
+ $x_3$ & $P_3 = Q_{3,0}$ & $P_{2,3} = Q_{3,1}$ & $P_{1,2,3} = Q_{3,2}$ & $P_{0,1,2,3} = Q_{3,3}$ \\
+ $x_4$ & $P_4 = Q_{4,0}$ & $P_{3,4} = Q_{4,1}$ & $P_{2,3,4} = Q_{4,3}$ & $P_{1,2,3,4} = Q_{4,3}$ & $P_{0,1,2,3,4} = Q_{4,4}$
+  \end{tabular}
+\lstinputlisting{/Users/lythaihoa2311992/R-files/neville.R}
  \newpage
  \begin{thebibliography}{1}
 
