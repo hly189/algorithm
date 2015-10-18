@@ -246,7 +246,13 @@ where $P(x)$ is the interpolating polynomial.
 \end{itemize}
 \begin{alg}{Newton Divided Difference Formula}
 \begin{algorithmic}
-Choose numbers $x,x_0,x_1 \cdots x_n$; values $f(x_0), f(x_1) \cdots f(x_n)$ as the first column $F_{0,0}, F_{1,0}, \cdots F_{n,0}$ 	
+Choose numbers $x,x_0,x_1 \cdots x_n$; values $f(x_0), f(x_1) \cdots f(x_n)$ as the first column $F_{0,0}, F_{1,0}, \cdots F_{n,0}$ 
+\For{$i = 1,2 \cdots n$}
+\For{$j = 1,2 \cdots i$}
+\State $F_{i,j} = \frac{F_{i,j-1} -F_{i-1,j-1}}{x_i - x_{i-j}}$
+\EndFor
+\EndFor
+\State \Return $F_{i,j}$
 \end{algorithmic}
 
 \lstinputlisting{/Users/lythaihoa2311992/R-files/newton_divided_difference.R}
