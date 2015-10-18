@@ -50,10 +50,6 @@
 \end{alg}
 
 
-
-
-
-
 \section{Fix-point Iteration}
 \subsection{Fixed point} \begin{itemize}
 	\item A number $p$ is a fixed point for a given function $g$ if $g(p) = p$
@@ -220,7 +216,47 @@ where $P(x)$ is the interpolating polynomial.
  $x_3$ & $P_3 = Q_{3,0}$ & $P_{2,3} = Q_{3,1}$ & $P_{1,2,3} = Q_{3,2}$ & $P_{0,1,2,3} = Q_{3,3}$ \\
  $x_4$ & $P_4 = Q_{4,0}$ & $P_{3,4} = Q_{4,1}$ & $P_{2,3,4} = Q_{4,3}$ & $P_{1,2,3,4} = Q_{4,3}$ & $P_{0,1,2,3,4} = Q_{4,4}$
   \end{tabular}
-\lstinputlisting{/Users/lythaihoa2311992/R-files/neville.R}
+\begin{alg}{Neville's Iterated Interpolation}
+		\begin{algorithmic}
+		Choose numbers $x,x_0,x_1 \cdots x_n$; values $f(x_0), f(x_1) \cdots f(x_n)$ as the first column $Q_{0,0}, Q_{1,0}, \cdots Q_{n,0}$ of Q
+		\State Create a matrix Q with $P(x) = Q_{n,n}(x)$
+		\For{$i = 1,2, \cdots , n$}
+		\For{$j = 1,2,\cdots, i$}
+		\State $Q_{i,j} = \frac{(x - x_{i-j})Q_{i,j-1} - (x - x_i)Q_{i-1,j-1}}{x_i - x_{i-j}}$
+		\EndFor 
+		\EndFor	
+		\State \Return $Q_{i,j}$
+		\end{algorithmic}
+	\lstinputlisting{/Users/lythaihoa2311992/R-files/neville.R}
+
+\end{alg}
+
+
+\section{Divided Difference}
+\begin{itemize}
+	\item Write the nth Lagrange polynomial in the form: 
+	$$P_n(x) = a_0 +a_1(x - x_0) +\cdots a_n(x - x_0)(x - x_1) \cdots (x-x_n)$$
+	\item Introduce the $kth$ dived difference
+	$$
+		f[x_i, x_{i+1}, \cdots x_{i+k-1}, x_{i+k}]  =  \\
+		\frac{f[x_i, x_{i+1}, \cdots, x_{i+k}] - f[x_i, x_{i+1}, \cdots x_{i+k-1}]}{x_{i+k} - x_i}
+	$$
+	\item The coefficients are $a_k = f[x_0,x_1, \cdots x_k]$ and 
+	$$P_n(x) = f[x_0] + \sum_{k=1}^{n}a_k(x - x_0) \cdots (x - x_{k-1})$$
+\end{itemize}
+\begin{alg}{Newton Divided Difference Formula}
+\begin{algorithmic}
+Choose numbers $x,x_0,x_1 \cdots x_n$; values $f(x_0), f(x_1) \cdots f(x_n)$ as the first column $F_{0,0}, F_{1,0}, \cdots F_{n,0}$ 	
+\end{algorithmic}
+
+\lstinputlisting{/Users/lythaihoa2311992/R-files/newton_divided_difference.R}
+\end{alg}
+
+
+
+
+
+
  \newpage
  \begin{thebibliography}{1}
 
