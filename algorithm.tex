@@ -10,6 +10,8 @@
 \usepackage{algpseudocode}
 \usepackage[margin=1.5cm]{geometry}
 \usepackage{url}
+\usepackage{graphicx}
+
 
 \newcommand{\tab}{\hspace{5mm}}
 \newcommand{\N}{\mathbb{N}}
@@ -91,6 +93,21 @@ Choose an initial guess for $x_0$
 The code below is written in R.
 \lstinputlisting{/Users/lythaihoa2311992/R-files/newton.R}	
 \end{alg}
+\begin{ex}
+Let $f(x) = x^2 + 5x +4$ \\
+After running the Newton's method with $x_0 = 1$ and $TOL = 0.001$, we get 	
+\end{ex}
+\begin{figure*}[ht!]
+\centering 
+\includegraphics[width = 10cm]{/Users/lythaihoa2311992/R-files/newton.png}
+\caption{$f(x) = x^2 +5x +4$}	
+\end{figure*}
+
+
+
+
+
+
 
 \section{Aitken's $\Delta^2$ method}
 \subsection{Accelerating convergence}
@@ -271,8 +288,8 @@ Choose numbers $x,x_0,x_1 \cdots x_n$; values $f(x_0), f(x_1) \cdots f(x_n)$ as 
 	$$f(x) = H_{2n+1}(x) + \frac{(x - x_0)^2 \cdots (x - x_n)^2}{(2n+2)!}f^{(2n+2)}(\xi(x))$$
 	for some $\xi(x) \in (a,b)$
 \end{theorem}
-\begin{alg}{Hermite Polynomial from Divided Difference}
-Suppose $x_0, \cdots, x_n$and $f,f'$ are give at these numbers. Define $z_0, \cdots z_{2n+1}$ by 
+\begin{alg}{(Hermite Polynomial from Divided Difference)}
+\newline Suppose $x_0, \cdots, x_n$and $f,f'$ are give at these numbers. Define $z_0, \cdots z_{2n+1}$ by 
 $$z_{2i} = z_{2i+1} = x_i$$
 Construct divided difference table, but use 
 $$f'(x_0), f'(x_1), \cdots f'(x_n)$$
