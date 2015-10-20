@@ -93,19 +93,16 @@ Choose an initial guess for $x_0$
 The code below is written in R.
 \lstinputlisting{/Users/lythaihoa2311992/R-files/newton.R}	
 \end{alg}
+
 \begin{ex}
 Let $f(x) = x^2 + 5x +4$ \\
-After running the Newton's method with $x_0 = 1$ and $TOL = 0.001$, we get 	
-\end{ex}
-\begin{figure*}[ht!]
+After running the Newton's method with $x_0 = 1$ and $TOL = 0.001$, we get 	\\
+\begin{figure}[H]
 \centering 
-\includegraphics[width = 10cm]{/Users/lythaihoa2311992/R-files/newton.png}
+\includegraphics[width = 9cm]{/Users/lythaihoa2311992/R-files/newton.png}
 \caption{$f(x) = x^2 +5x +4$}	
-\end{figure*}
-
-
-
-
+\end{figure}	
+\end{ex}
 
 
 
@@ -199,7 +196,7 @@ then $P(x) = (x - x_0)Q(x) + b_0$
 \end{alg}
 
 
-\section{Muller's Method}
+\subsection{Muller's Method}
 \begin{itemize}
 	\item Similar to Secant method, but parabola instead of line
 	\item Fix quadratic polynomial $P(x) = a(x-p_2)^2 +b(x - p_2) + c$ that passes through $(p_0,f(p_0)),(p_1,f(p_1)),(p_2,f(p_2))$.
@@ -210,7 +207,7 @@ then $P(x) = (x - x_0)Q(x) + b_0$
 \end{itemize}
 \lstinputlisting{/Users/lythaihoa2311992/R-files/muller.R}
 
-\section{The Lagrange Polynomial}
+\subsection{The Lagrange Polynomial}
 \begin{theorem}
 	if $x_0, \cdots , x_n$ distinct and $f$ given at these numbers a unique polynomial $P(x)$ of degree $\leq$ n exists with 
 	$$f(x_k) = P(x_k) \; \text{for each $k = 0,1, \cdots, n$}$$
@@ -225,7 +222,7 @@ $$f(x) = P(x) + \frac{f^{(n+1)}(\xi (x))}{(n+1)!}(x-x_0)(x-x_1) \cdots (x - x_n)
 where $P(x)$ is the interpolating polynomial. 
 \end{theorem}
 
-\section{Neville's Method}
+\subsection{Neville's Method}
 \begin{tabular}{ c c c c c c }
  $x_0$ & $P_0 = Q_{0,0}$ \\
  $x_1$ & $P_1 = Q_{1,0}$ & $P_{0,1} = Q_{1,1}$ \\
@@ -249,7 +246,7 @@ where $P(x)$ is the interpolating polynomial.
 \end{alg}
 
 
-\section{Divided Difference}
+\subsection{Divided Difference}
 \begin{itemize}
 	\item Write the nth Lagrange polynomial in the form: 
 	$$P_n(x) = a_0 +a_1(x - x_0) +\cdots a_n(x - x_0)(x - x_1) \cdots (x-x_n)$$
@@ -275,7 +272,7 @@ Choose numbers $x,x_0,x_1 \cdots x_n$; values $f(x_0), f(x_1) \cdots f(x_n)$ as 
 \lstinputlisting{/Users/lythaihoa2311992/R-files/newton_divided_difference.R}
 \end{alg}
 
-\section{Hermit's interpolation}
+\subxsection{Hermit's interpolation}
 \begin{theorem}
 	If $f \in C^1[a,b]$ and $x_0, \cdots, x_n \in [a,b]$ distinct, the Hermite polynomial is 
 	$$H_{2n+1}(x) = \sum_{j=0}^n f(x_j)H_{n,j}(x) + \sum_{j=0}^n f'(x_j)\hat{H}_{n,j}(x)$$
