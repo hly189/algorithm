@@ -259,6 +259,28 @@ Choose numbers $x,x_0,x_1 \cdots x_n$; values $f(x_0), f(x_1) \cdots f(x_n)$ as 
 \end{alg}
 
 \section{Hermit's interpolation}
+\begin{theorem}
+	If $f \in C^1[a,b]$ and $x_0, \cdots, x_n \in [a,b]$ distinct, the Hermite polynomial is 
+	$$H_{2n+1}(x) = \sum_{j=0}^n f(x_j)H_{n,j}(x) + \sum_{j=0}^n f'(x_j)\hat{H}_{n,j}(x)$$
+	where 
+	\begin{eqnarray*}		
+	H_{n,j}(x) &=& [1 - 2(x - x_j)L'_{n,j}(x_j)]L^2_{n,j}(x) \\
+	\hat{H}_{n,j}(x) &=& (x - x_j)L^2_{n,j}(x)
+	\end{eqnarray*}
+	Moreover, if $f \in C^{2n+2}[a,b]$, then 
+	$$f(x) = H_{2n+1}(x) + \frac{(x - x_0)^2 \cdots (x - x_n)^2}{(2n+2)!}f^{(2n+2)}(\xi(x))$$
+	for some $\xi(x) \in (a,b)$
+\end{theorem}
+\begin{alg}{Hermite Polynomial from Divided Difference}
+Suppose $x_0, \cdots, x_n$and $f,f'$ are give at these numbers. Define $z_0, \cdots z_{2n+1}$ by 
+$$z_{2i} = z_{2i+1} = x_i$$
+Construct divided difference table, but use 
+$$f'(x_0), f'(x_1), \cdots f'(x_n)$$
+instead of the undefined dived differences 
+$$f[z_0,z_1], f[z_2,z_3], \cdots, f[z_{2n},z_{2n+1}]$$
+The Hermite polynomial is 
+$$H_{2n+1}(x) = f[z_0] +\sum_{k=1}^{2n+1}f[z_0, \cdots z_k](x - z_0) \cdots (x - z_{k-1})$$	
+\end{alg}
 
 \lstinputlisting{/Users/lythaihoa2311992/R-files/hermit.R}
 
