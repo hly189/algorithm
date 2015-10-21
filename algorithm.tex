@@ -50,6 +50,15 @@
 	\lstinputlisting{/Users/lythaihoa2311992/Desktop/job/algorithm/bisection.m}
 \end{itemize}
 \end{alg}
+\begin{ex}
+Let $f(x) = x^2 + 5x +4$ \\
+After running the Bisection method on the interval $[-1,5]$ and $TOL = 0.001$, we get 	\\
+\begin{figure}[H]
+\centering 
+\includegraphics[width = 9cm]{/Users/lythaihoa2311992/R-files/bisection.png}
+\caption{$f(x) = x^2 +5x +4$}	
+\end{figure}	
+\end{ex}
 
 
 \section{Fix-point Iteration}
@@ -71,9 +80,17 @@ Choose an initial guess $x_0 \in [a,b]$
 \EndIf
 \EndFor
 \end{algorithmic}
-\lstinputlisting{/Users/lythaihoa2311992/Documents/MATLAB/fixedpoint.m}
+\lstinputlisting{/Users/lythaihoa2311992/R-files/fixpoint.R}
 \end{alg}
-
+\begin{ex}
+Let $f(x) = x^2 + 5x +4$ \\
+After running Fixed point iteration with $x_0 = 1$ and $TOL = 0.001$, we get 	\\
+\begin{figure}[H]
+\centering 
+\includegraphics[width = 9cm]{/Users/lythaihoa2311992/R-files/fixpoint.png}
+\caption{$f(x) = x^2 +5x +4$}	
+\end{figure}	
+\end{ex}
 
 
 \section{Newton method}
@@ -99,7 +116,7 @@ Let $f(x) = x^2 + 5x +4$ \\
 After running the Newton's method with $x_0 = 1$ and $TOL = 0.001$, we get 	\\
 \begin{figure}[H]
 \centering 
-\includegraphics[width = 9cm]{/Users/lythaihoa2311992/R-files/newton.png}
+\includegraphics[width = 6.9cm]{/Users/lythaihoa2311992/R-files/newton.png}
 \caption{$f(x) = x^2 +5x +4$}	
 \end{figure}	
 \end{ex}
@@ -272,7 +289,7 @@ Choose numbers $x,x_0,x_1 \cdots x_n$; values $f(x_0), f(x_1) \cdots f(x_n)$ as 
 \lstinputlisting{/Users/lythaihoa2311992/R-files/newton_divided_difference.R}
 \end{alg}
 
-\subxsection{Hermit's interpolation}
+\subsection{Hermit's interpolation}
 \begin{theorem}
 	If $f \in C^1[a,b]$ and $x_0, \cdots, x_n \in [a,b]$ distinct, the Hermite polynomial is 
 	$$H_{2n+1}(x) = \sum_{j=0}^n f(x_j)H_{n,j}(x) + \sum_{j=0}^n f'(x_j)\hat{H}_{n,j}(x)$$
