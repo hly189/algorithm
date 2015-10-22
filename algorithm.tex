@@ -10,6 +10,7 @@
 \usepackage{algpseudocode}
 \usepackage[margin=1.5cm]{geometry}
 \usepackage{url}
+\usepackage{subcaption}
 \usepackage{graphicx}
 
 
@@ -27,6 +28,8 @@
 \newtheorem*{definition}{Defintion}
 \newtheorem*{remarks}{Remarks}
 
+\setcounter{tocdepth}{3}% Include \subsubsection in ToC
+
 
 \title{Numerical methods }
 \author{Hoa Ly}
@@ -38,7 +41,9 @@
 \tableofcontents
 \newpage
 
-\section{The Bisection method}
+
+\section{Numerical solution of equation}
+\subsection{The Bisection method}
 \begin{alg}
 \begin{itemize}
 	\item Suppose $f$ is continous on $[a,b]$, and $f(a),f(b)$ is opposite signs.
@@ -47,22 +52,13 @@
 	\item If $f(p)$ has the same sign as $f(a)$, we use the new interval $[p,b]$
 	\item If $f(p)$ has the same sign as $f(a)$, we use the new interval $[a,p]$
 	\item Repeat until the interval small enough to estimate $x$
-	\lstinputlisting{/Users/lythaihoa2311992/Desktop/job/algorithm/bisection.m}
+	\lstinputlisting{//Users/lythaihoa2311992/R-files/bisection.R}
 \end{itemize}
 \end{alg}
-\begin{ex}
-Let $f(x) = x^2 + 5x +4$ \\
-After running the Bisection method on the interval $[-1,5]$ and $TOL = 0.001$, we get 	\\
-\begin{figure}[H]
-\centering 
-\includegraphics[width = 9cm]{/Users/lythaihoa2311992/R-files/bisection.png}
-\caption{$f(x) = x^2 +5x +4$}	
-\end{figure}	
-\end{ex}
 
 
-\section{Fix-point Iteration}
-\subsection{Fixed point} \begin{itemize}
+\subsection{Fix-point Iteration}
+\subsubsection{Fixed point} \begin{itemize}
 	\item A number $p$ is a fixed point for a given function $g$ if $g(p) = p$
 	\item Given a root finding problem $f(p) = 0$, there are many $g$ with fixed point at $p$
 	$$g(x) = x - f(x)$$ $$g(x) = x + 3f(x)$$
@@ -82,18 +78,49 @@ Choose an initial guess $x_0 \in [a,b]$
 \end{algorithmic}
 \lstinputlisting{/Users/lythaihoa2311992/R-files/fixpoint.R}
 \end{alg}
-\begin{ex}
-Let $f(x) = x^2 + 5x +4$ \\
-After running Fixed point iteration with $x_0 = 1$ and $TOL = 0.001$, we get 	\\
+
+
+\subsubsection{Example 1:}
+\begin{itemize}
+	\item For Quadratic Equation: $f(x) = x^2 +5x +4$
+	\begin{figure}[H]
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[width=.8\linewidth]{/Users/lythaihoa2311992/R-files/bisection.png}
+  \caption{Bisection's Method}
+  \label{fig:sfig1}
+\end{subfigure}%
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[width=.8\linewidth]{/Users/lythaihoa2311992/R-files/fixpoint.png}
+  \caption{Fixed point Iteration}
+  \label{fig:sfig2}
+\end{subfigure}
+\label{fig:fig}
+\caption{$f(x) = x^2 +5x +4$}
+\end{figure}
+
+\item For Cubic Equation: $f(x) = x^3 -3x +2$
 \begin{figure}[H]
-\centering 
-\includegraphics[width = 9cm]{/Users/lythaihoa2311992/R-files/fixpoint.png}
-\caption{$f(x) = x^2 +5x +4$}	
-\end{figure}	
-\end{ex}
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[width=.8\linewidth]{/Users/lythaihoa2311992/R-files/bisection_cubic.png}
+  \caption{Bisection's Method}
+  \label{fig:sfig1}
+\end{subfigure}%
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[width=.8\linewidth]{/Users/lythaihoa2311992/R-files/fixpoint_cubic.png}
+  \caption{Fixed point Iteration}
+  \label{fig:sfig2}
+\end{subfigure}
+\label{fig:fig}
+\caption{$f(x) = x^3 -5x +2$}
+\end{figure}
+\end{itemize}
+By 2 examples of Quadratic and Cubic functions above, we can see that Fixed Point Iteration is more better than Bisection's method. Because, like we see in the graph above, Fixed Point Iteration converges to zero faster than Bisection and it takes less step than Bisection's method. 
 
-
-\section{Newton method}
+\subsection{Newton method}
 Newton's method is fixed point iteration $p_n = g(p_{n-1})$ with $$g(x) = x - \frac{f(x)}{f'(x)}$$
 \begin{alg}{Newton-algorithm}
 \begin{algorithmic}
@@ -111,20 +138,10 @@ The code below is written in R.
 \lstinputlisting{/Users/lythaihoa2311992/R-files/newton.R}	
 \end{alg}
 
-\begin{ex}
-Let $f(x) = x^2 + 5x +4$ \\
-After running the Newton's method with $x_0 = 1$ and $TOL = 0.001$, we get 	\\
-\begin{figure}[H]
-\centering 
-\includegraphics[width = 6.9cm]{/Users/lythaihoa2311992/R-files/newton.png}
-\caption{$f(x) = x^2 +5x +4$}	
-\end{figure}	
-\end{ex}
 
 
-
-\section{Aitken's $\Delta^2$ method}
-\subsection{Accelerating convergence}
+\subsection{Aitken's $\Delta^2$ method}
+\subsubsection{Accelerating convergence}
 \begin{itemize}
 	\item Suppose $\{p_n\}_{n=0}^{\infty}$ is linearyly convergent with limit $p$
 	\item Assume that $$\frac{p_{n+1}-p}{p_n -p} = \frac{p_{n+2}-p}{p_{n+1} -p}$$
@@ -132,14 +149,14 @@ After running the Newton's method with $x_0 = 1$ and $TOL = 0.001$, we get 	\\
 	\item Use this for new more rapidly converging sequence $\{\hat{p}\}_{n=0}^2$: $$\hat{p} = p_n -\frac{(p_{n+1} -p_n)^2}{p_{n+1} -2p_{n+1} +p_n}$$
 \end{itemize}
 
-\subsection{Delta notation}
+\subsubsection{Delta notation}
 \begin{definition}
 	For a given sequence $\{p_n\}_{n=0}^{\infty}$, the forward difference $\Delta p_n$ is defined by:
 	$$\Delta p_n = p_{n+1} - p_n \; \text{for $n \geq 0$}$$
 	Higher power of the operator $Delta$ are defined recursively by $$\Delta^kp_n = \Delta(\Delta^{k-1}p_n) \; \text{for $k \geq 2$}$$
 	\end{definition}
 Since $\Delta^2p_n = p_{n+2} -2p_{n+1} + p_n$, then $$\hat{p}_n = p_n - \frac{(\Delta p_n)^2}{\Delta^2 p_n}$$
-\subsection{Convergence of Aitken's $\Delta^2$ Method}
+\subsubsection{Convergence of Aitken's $\Delta^2$ Method}
 \begin{theorem}
 Suppose that $\{p_n\}_{n=0}^{\infty}$ converges linearly to p and that $$\lim_{n \to \infty} \frac{p_{n+1} - p}{p_n - p} <1$$
 Then,  	$\{\hat{p}\}_{n=0}^2$ converges to p faster than $\{p_n\}_{n=0}^{\infty}$ in the sense that 
@@ -147,8 +164,8 @@ $$\lim_{n \to \infty}\frac{\hat{p}_n -p}{p_n - p} = 0$$
 \end{theorem}
 
 
-\section{Steffensen's Method}
-\subsection{Accelerating fixed point iteration}
+\subsection{Steffensen's Method}
+\subsubsection{Accelerating fixed point iteration}
 Aitken's $\Delta^2$ method for fixed-point iteration gives $$p_0, p_1 = g(p_0), \hat{p_0} = \Delta^2p_0$$ $$p3 = g(p_2), \hat{p_1} = \Delta^2p_1, \cdots$$
 Steffensen's method assumes $\hat{p_0}$ is better than $p_2$: 
 $$p_0^{(0)}, p_1^{(0)} = g(p_0^{(0)}), p_0^{(1)} = \Delta^2(p_0^{(0)})$$ $$p_1^{(1)} = g(p_0^{(1)}), \cdots$$
@@ -171,15 +188,51 @@ $$p_0^{(0)}, p_1^{(0)} = g(p_0^{(0)}), p_0^{(1)} = \Delta^2(p_0^{(0)})$$ $$p_1^{
 	\end{algorithmic}
 \lstinputlisting{/Users/lythaihoa2311992/R-files/Steffensen.R}
 \end{alg}
-\begin{ex}
-Let $f(x) = x^2 + 5x +4$ \\
-After running the Steffesen's method with $x_0 = 1$ and $TOL = 0.001$, we get 	\\
+
+\subsubsection{Example 2:}
+\begin{itemize}
+	\item For Quadratic Equation: 
+	let $f(x) = x^2 +5x +4$
+	\begin{figure}[H]
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[width=.8\linewidth]{/Users/lythaihoa2311992/R-files/newton.png}
+  \caption{Newton's Method}
+  \label{fig:sfig2}
+\end{subfigure}
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[width=.8\linewidth]{/Users/lythaihoa2311992/R-files/Steffensen.png}
+  \caption{Steffensen's Method}
+  \label{fig:sfig2}
+\end{subfigure}
+
+\label{fig:fig}
+\caption{$f(x) = x^2 +5x +4$}
+
+\end{figure}
+\item For Cubic Equation: $f(x) = x^3 + 5x + 2$
 \begin{figure}[H]
-\centering 
-\includegraphics[width = 6.9cm]{/Users/lythaihoa2311992/R-files/Steffensen.png}
-\caption{$f(x) = x^2 +5x +4$}	
-\end{figure}	
-\end{ex}
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[width=.8\linewidth]{/Users/lythaihoa2311992/R-files/newton_cubic.png}
+  \caption{Newton's Method}
+  \label{fig:sfig2}
+\end{subfigure}
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[width=.8\linewidth]{/Users/lythaihoa2311992/R-files/Steffensen_cubic.png}
+  \caption{Steffensen's Method}
+  \label{fig:sfig2}
+\end{subfigure}
+
+\label{fig:fig}
+\caption{$f(x) = x^3 +5x +2$}
+
+\end{figure}
+
+\end{itemize}
+By 2 examples above, we can see that even though, the Steffensen's Method using Aitken's method  does not use derivative to find the numerical roots like Newton's method. But, it is better; because, according to the graphs above, it takes less steps to make the equation converges to zero.
 
 \section{Zeroes Polynomials}
 
