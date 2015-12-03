@@ -234,9 +234,8 @@ $$p_0^{(0)}, p_1^{(0)} = g(p_0^{(0)}), p_0^{(1)} = \Delta^2(p_0^{(0)})$$ $$p_1^{
 \end{itemize}
 By 2 examples above, we can see that even though, the Steffensen's Method using Aitken's method  does not use derivative to find the numerical roots like Newton's method. But, it is better; because, according to the graphs above, it takes less steps to make the equation converges to zero.
 
-\section{Zeroes Polynomials}
 
-\subsection{Polynomial}
+\subsubsection{Polynomial}
 A polynomial of degree n has the form $P(x) = a_nx^n +a_{n-1}x^{n-1} + \cdots +a_1x + a_0$ with coefficient $a_i$ and $a_n \neq 0$
 \begin{theorem}{(Fundamental Theorem of Algebra)}
 \newline If $P(x)$ polynomial of degree $n \geq 1$, with real or complex coefficients $P(x) = 0$ has at least one root. 	
@@ -285,6 +284,12 @@ then $P(x) = (x - x_0)Q(x) + b_0$
 \end{itemize}
 \lstinputlisting{/Users/lythaihoa2311992/R-files/muller.R}
 
+
+
+
+
+
+\section{Interpolation Polynomial}
 \subsection{The Lagrange Polynomial}
 \begin{theorem}
 	if $x_0, \cdots , x_n$ distinct and $f$ given at these numbers a unique polynomial $P(x)$ of degree $\leq$ n exists with 
@@ -377,6 +382,52 @@ $$H_{2n+1}(x) = f[z_0] +\sum_{k=1}^{2n+1}f[z_0, \cdots z_k](x - z_0) \cdots (x -
 \lstinputlisting{/Users/lythaihoa2311992/R-files/hermit.R}
 
 
+
+
+
+\section{IVP for Ordinary Differential Equation}
+\subsection{Higher-Order Taylor Methods}
+Initial Value Problem: $$y' = f(t,y), \; a \leq t \leq b, \; y(a) = \alpha$$
+Expand $y(t)$ in $nth$ Taylor polynomial about $t_i$, evaluated at $t_{i+1}$
+\begin{eqnarray*}
+	y(t_{i+1}) &=& y(t_i) + hy'(t_i) + \frac{h^2}{2}y''(t_i) + \cdots + \frac{h^n}{n!}y^{(n)}(t_i) + \frac{h^{(n+1)}}{(n+1)!}y^{(n+1)}(\xi_i) \\
+			   &=& y(t_i) + hf(t_i, y(t_i)) +\frac{h^2}{2}f'(t_i, y(t_i)) + \cdots \frac{h^n}{n!}f^{(n-1)}(t_i, y(t_i)) + \frac{h^{(n+1)}}{(n+1)!}f^{(n)}(\xi_i, y(\xi_i))
+\end{eqnarray*}
+for some $\xi_i \in (t_i, t_{i+1})$. Take out the remainder term to get the Taylor method of order n. 
+\subsubsection{Taylor Method of Order n}
+\begin{eqnarray*}
+	w_0 	&=& \alpha \\
+	w_{i+1} &=& w_i +hT^{(n)}(t_i, w_i), \; i = 0,1,2 \cdots, N-1
+\end{eqnarray*}
+where, $$T^{(n)}(t_i, w_i) = f(t_i,w_i) + \frac{h}{2}f'(t_i,w_i) + \cdots + \frac{h^{(n-1)}}{n!}f^{(n-1)}(t_i,w_i)$$
+\begin{theorem}
+	if Taylor's method of order n is used to approximate the solution IVP above with step size h and if $y \in C^{n+1}[a,b]$, then local truncation error is $O(h^n)$
+\end{theorem}
+\subsection{Taylor's Theorem in Two variables}
+\begin{theorem}
+	Suppose f(t,y) and partial derivatives up to order n+1 continuous on $D = \{(t,y) | a \leq t \leq b, c \leq y \leq d\}$, let $(t_0,y_0) \in D$. For $(t,y) \in D$, there is $\xi \in [t,t_0]$ and $\mu \in [y,y_0]$ with 
+	\begin{eqnarray*}
+		f(t,y)   &=& P_n(t,y) + R_n(t,y) \\
+		P_n(t,y) &=& f(t_0,y_0) + \left[(t-t_0)\frac{\partial}{\partial t}(t_0,y_0) + (y-y_0)\frac{\partial}{\partial y}(t_0,y_0)\right] \\
+				 &+& \left[\frac{(t-t_0)^2}{2}\frac{\partial^2f}{\partial t^2}(t_0,y_0) + (t-t_0)(y-y_0)\frac{\partial^2}{\partial t \partial y}(t_0,y_0) + \frac{(y-y_0)^2}{2}\frac{\partial^2 f}{\partial y^2}(t_0,y_0)\right] \\
+				 &+& \cdots  + \left[ \frac{1}{n!}\sum_{j=0}^n {n \choose k} (t-t_0)^{n-j}(y-y_0)^j \frac{\partial^nf}{\partial t^{n-j} \partial y^j}(t_0,y_0)\right] \\
+		R_n(t,y) &=& \frac{1}{(n-1)!}\sum_{j=0}^{n+1}{n+1 \choose j}(t-t_0)^{n+1-j}(y-y_0)^j\frac{\partial^{n+1}f}{\partial t^{n+1-j}\partial y^j}(\xi, \mu)
+	\end{eqnarray*}
+$P_n(t,y)$ is the nth Taylor polynomial in two variables. 
+\end{theorem}
+\subsection{Runge-Kutta Method}
+This method is used to obtain high-order accuracy of Taylor methods without knowledges of derivatives of f \\
+Determine $a_1,\alpha_1, \beta_1$ such that $$a_1f(t+\alpha_1, y + \beta_1) = f(t,y) + \frac{h}{2}f'(t,y) = T^{(2)}(t,y)$$ with $O(h^2)$ error. \\
+Since $$f'(t,y) = \frac{df}{dt}(t,y) = \frac{df}{dt}(t,y) + \frac{df}{dy}(t,y)\cdot y'(t)$$ and $y'(t) = f(t,y)$ we have $$T^{(2)}(t,y) = f(t,y) + \frac{h}{2} \frac{\partial f}{\partial t}(t,y) + \frac{h}{2}\frac{\partial f}{\partial y}(t,y) \cdot f(t,y)$$ 
+Expand $f(t+\alpha_1, y + \beta_1)$ in 1st degree Taylor polynomial: $$a_1f(t+\alpha_1, y + \beta_1)= a_1f(t,y) + a_1\alpha_1\frac{h}{2} \frac{\partial f}{\partial t}(t,y) + a_1\beta_1\frac{h}{2}\frac{\partial f}{\partial y}(t,y) + a_1R_1(t+\alpha_1,y+\beta_1)$$ 
+with given coefficients $a_1 = 1$, $a_1\alpha_1 = \frac{h}{2}$, $a_1\beta_1 = \frac{h}{2}f(t,y)$ gives $$T^{(2)}(t,y) = f\left(t + \frac{h}{2}, y + \frac{h}{2}f(t,y)\right) - R_1 \left(t + \frac{h}{2},y + \frac{h}{2}f(t,y)\right)$$ with $R_1(\cdot,\cdot) = O(h^2)$
+\subsubsection{Midpoint Method}
+\begin{eqnarray*}
+	w_0 = \alpha \\
+	w_{i+1} = w_i + hf\left(t + \frac{h}{2}, y + \frac{h}{2}f(t,y)\right), & i= 0,1,\cdots, N-1
+\end{eqnarray*}
+It has local truncation $O(h^2)$
+\subsubsection{Runge-Kutta Order Four}
 
 
 
